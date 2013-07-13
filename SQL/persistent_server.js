@@ -23,30 +23,35 @@ var extend = function(target, source){
  * database: "chat" specifies that we're using the database called
  * "chat", which we created by running schema.sql.*/
 var port = 8080;
-var ip = "127.0.0.1";
+var ip = "local";
 var dbConnection = mysql.createConnection({
   user: "root",
-  password: "plantlife",
+  password: "",
   database: "chrisApp"
 });
-// dbConnection.connect();
+dbConnection.connect();
 
 var server = http.createServer(function(req,res){
   var headers = extend({
     "Content-Type": "application/json"
   }, defaultCorsHeaders);
-
   if (req.method === "GET") {
-    dbConnection.connect();
-    var test = dbConnection.query('SELECT * FROM users;', function(err, results, fields){
-      console.log(results);
-      res.writeHead(200,{"content-type" : "text/html"});
-      res.end(JSON.stringify(results));
-    });
+    console.log('breaks here');
+    // dbConnection.query('SELECT * FROM users',
+    //  function(err, row){
+    //   if (err){
+    //     console.log("there is an error!");
+    //   } else{
+    //     console.log('row is :',row);
+    //   }
+    // });
+    // dbConnection.end();
     // fs.readFile('../index.html', function(err, data){
     //   if(err) {
     //     throw err;
     //   } else{
+    res.writeHead(200,{"content-type" : "text/html"});
+    res.end(JSON.stringify(row));
     //   }
   // });
   } else if (req.method === "POST"){
@@ -66,11 +71,7 @@ var server = http.createServer(function(req,res){
     }
 });
 
-
-console.log("Listening on http://" + ip + ":" + port);
-server.listen(port,ip);
-
-
+server.listen(port);
 //dbConnection.connect();
 /* Now you can make queries to the Mysql database using the
  * dbConnection.query() method.
