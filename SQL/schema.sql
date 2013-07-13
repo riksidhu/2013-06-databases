@@ -1,9 +1,11 @@
-CREATE DATABASE chat;
+-- CREATE DATABASE chrisApp;
 
-USE chat;
+USE chrisApp;
 
-CREATE TABLE messages (
+CREATE TABLE users(
  /* Describe your table here.*/
+  userId INT(10) NOT NULL auto_increment ,PRIMARY KEY(userId), user varchar(100),
+  message varchar(200), postTime TIMESTAMP default current_timestamp, chatRoom varchar(30)
 );
 
 /* You can also create more tables, if you need them... */
